@@ -88,7 +88,7 @@ const Encabezado = () => {
 
              {/* Opción de navegación a cliente */}
  <Nav.Link
-                onClick={() => navegarA("/Cliente")}
+                onClick={() => navegarA("/clientes")}
                 className={estaColapsado ? "text-black" : "text-white"}
               >
                 {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
@@ -102,6 +102,14 @@ const Encabezado = () => {
               >
                 {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
                 <strong>Productos</strong>
+              </Nav.Link>
+  {/* Opción de navegación a Categorias*/}
+  <Nav.Link
+                onClick={() => navegarA("/Categorias")}
+                className={estaColapsado ? "text-black" : "text-white"}
+              >
+                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Categorias</strong>
               </Nav.Link>
 
               {/* Lógica condicional para mostrar Cerrar Sesión o Iniciar Sesión */}
