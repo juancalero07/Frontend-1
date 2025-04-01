@@ -4,10 +4,10 @@ import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Declaración del componente TablaCategorias que recibe props
-const TablaCategorias = ({ categorias, cargando, error }) => {
+const TablaUsuarios = ({ Usuarios, cargando, error }) => {
   // Renderizado condicional según el estado recibido por props
   if (cargando) {
-    return <div>Cargando categorías...</div>; // Muestra mensaje mientras carga
+    return <div>Cargando Usuarios...</div>; // Muestra mensaje mientras carga
   }
   if (error) {
     return <div>Error: {error}</div>;         // Muestra error si ocurre
@@ -18,17 +18,17 @@ const TablaCategorias = ({ categorias, cargando, error }) => {
     <Table striped bordered hover responsive>
       <thead>
         <tr>
-          <th>ID Categoría</th>
-          <th>Nombre</th>
-          <th>Descripción</th>
+          <th>ID Usuarios</th>
+          <th>Usuarios</th>
+          <th>Contraseña</th>
         </tr>
       </thead>
       <tbody>
-        {categorias.map((categoria) => (
-          <tr key={categoria.id_categoria}>
-            <td>{categoria.id_categoria}</td>
-            <td>{categoria.nombre_categoria}</td>
-            <td>{categoria.descripcion_categoria}</td>
+        {Usuarios.map((Usuarios) => (
+          <tr key={Usuarios.id_usuario}>
+            <td>{Usuarios.id_usuario}</td>
+            <td>{Usuarios.usuario}</td>
+            <td>{Usuarios.contraseña}</td>
           </tr>
         ))}
       </tbody>
@@ -37,4 +37,4 @@ const TablaCategorias = ({ categorias, cargando, error }) => {
 };
 
 // Exportación del componente
-export default TablaCategorias;
+export default TablaUsuarios;
