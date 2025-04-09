@@ -33,7 +33,7 @@ const TablaProductos = ({ Productos, cargando, error }) => {
             <td>{Productos.nombre_producto}</td>
             <td>{Productos.descripcion_producto}</td>
             <td>{Productos.id_categoria}</td>
-            <td>{Productos.precio_unitario}</td>
+            <td>C$ {Productos.precio_unitario}</td>
             <td>{Productos.stock}</td>
           </tr>
         ))}

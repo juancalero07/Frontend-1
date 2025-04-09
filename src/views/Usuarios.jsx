@@ -1,15 +1,18 @@
-// Importaciones necesarias para la vista
 import React, { useState, useEffect } from 'react';
 import TablaUsuarios from '../components/usuario/TablaUsuarios'; // Importa el componente de tabla
-import { Container } from "react-bootstrap";
-
+import { Container  ,Row ,Col} from "react-bootstrap";
+import CuadroBusquedas from '../components/busquedas/CuadroBusquedas.jsx';
 // Declaración del componente Ventas
 const Usuarios = () => {
   // Estados para manejar los datos, carga y errores
   const [listaUsuarios, setListaUsuarios] = useState([]); // Almacena los datos de la API
   const [cargando, setCargando] = useState(true);     // Controla el estado de carga
   const [errorCarga, setErrorCarga] = useState(null); // Maneja errores de la petición
-
+   
+    const [categoriasFiltradas, setCategoriasFiltradas] = useState([]);
+    const [textoBusqueda, setTextoBusqueda] = useState("");
+    
+    
   // Lógica de obtención de datos con useEffect
   useEffect(() => {
     const obtenerUsuarios = async () => {

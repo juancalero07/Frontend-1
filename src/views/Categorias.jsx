@@ -2,8 +2,8 @@
 import React, { useState, useEffect } from 'react';
 import TablaCategorias from '../components/categorias/TablaCategorias'; // Importa el componente de tabla
 import ModalRegistroCategoria from '../components/categorias/ModalRegistroCategoria';
-import { Container, Button  } from "react-bootstrap";
-
+import { Container, Button  , Row ,Col } from "react-bootstrap";
+import CuadroBusquedas from '../components/busquedas/CuadroBusquedas.jsx';
 
 // Declaración del componente Categorias
 const Categorias = () => {
@@ -16,6 +16,9 @@ const Categorias = () => {
     nombre_categoria: '',
     descripcion_categoria: ''
   });
+  const [categoriasFiltradas, setCategoriasFiltradas] = useState([]);
+  const [textoBusqueda, setTextoBusqueda] = useState("");
+
 
   const obtenerCategorias = async () => {
     try {
@@ -25,12 +28,14 @@ const Categorias = () => {
       }
       const datos = await respuesta.json();
       setListaCategorias(datos);    // Actualiza el estado con los datos
+      setCategoriasFiltradas(datos);
       setCargando(false);           // Indica que la carga terminó
     } catch (error) {
       setErrorCarga(error.message); // Guarda el mensaje de error
       setCargando(false);           // Termina la carga aunque haya error
     }
   };
+
   
   // Lógica de obtención de datos con useEffect
   useEffect(() => {
@@ -76,6 +81,17 @@ const Categorias = () => {
       setErrorCarga(error.message);
     }
   };
+  const manejarCambioBusqueda = (e) => {
+    const texto = e.target.value.toLowerCase();
+    setTextoBusqueda(texto);
+    
+    const filtradas = listaCategorias.filter(
+      (categorias) =>
+        categorias.nombre_categoria.toLowerCase().includes(texto) ||
+        categorias.descripcion_categoria.toLowerCase().includes(texto)
+    );
+    setCategoriasFiltradas(filtradas);
+  };
 
 
   // Renderizado de la vista
@@ -85,17 +101,32 @@ const Categorias = () => {
         <br />
         <h4>Categorías</h4>
 
-        <Button variant="primary" onClick={() => setMostrarModal(true)}>
-          Nueva Categoría
-        </Button>
+        <Row>
+    <Col lg={2} md={4} sm={4} xs={5}>
+      <Button variant="primary"
+       onClick={() => 
+       setMostrarModal(true)} 
+       style={{ width: "100%" }}>
+        Nueva Categoría
+      </Button>
+    </Col>
+    <Col lg={5} md={8} sm={8} xs={7}>
+      <CuadroBusquedas
+        textoBusqueda={textoBusqueda}
+        manejarCambioBusqueda={manejarCambioBusqueda}
+      />
+    </Col>
+  </Row>
+
         <br/><br/>
 
         {/* Pasa los estados como props al componente TablaCategorias */}
-        <TablaCategorias 
-          categorias={listaCategorias} 
-          cargando={cargando} 
-          error={errorCarga} 
-        />
+         <TablaCategorias 
+    categorias={categoriasFiltradas} 
+    cargando={cargando} 
+    error={errorCarga} 
+  />
+
 
         <ModalRegistroCategoria
           mostrarModal={mostrarModal}
