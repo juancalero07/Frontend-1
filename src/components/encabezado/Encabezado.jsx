@@ -3,7 +3,9 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import logo from "/vite.svg"; // Importación del logo de la ferretería
 import "bootstrap-icons/font/bootstrap-icons.css"; // Importación de íconos de Bootstrap
-import "../../App.css"; // Estilos personalizados de la aplicación
+import "../../App.css";
+
+// Estilos personalizados de la aplicación
 
 const Encabezado = () => {
   // Estado para controlar el colapso del menú lateral
@@ -46,7 +48,7 @@ const Encabezado = () => {
           style={{ cursor: "pointer" }}
         >
           <img alt="" src={logo} width="30" height="30" className="d-inline-block align-top" />{" "}
-          <strong>Ferretería Calero </strong>
+          <strong>Ferretería Calero</strong>
         </Navbar.Brand>
 
         {/* Botón para alternar el menú lateral en pantallas pequeñas */}
@@ -86,7 +88,8 @@ const Encabezado = () => {
                 <strong>Inicio</strong>
               </Nav.Link>
 
-             {/* Opción de navegación a cliente */}
+        
+
               <Nav.Link
                 onClick={() => navegarA("/clientes")}
                 className={estaColapsado ? "text-black" : "text-white"}
@@ -95,35 +98,42 @@ const Encabezado = () => {
                 <strong>Clientes</strong>
               </Nav.Link>
 
-            {/* Opción de navegación a Productos */}
-             <Nav.Link
-                onClick={() => navegarA("/Producto")}
-                className={estaColapsado ? "text-black" : "text-white"}
-              >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Productos</strong>
-              </Nav.Link>
-
-            {/* Opción de navegación a Productos */}
-            <Nav.Link
-                onClick={() => navegarA("/usuarios")}
-                className={estaColapsado ? "text-black" : "text-white"}
-              >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Usuarios </strong>
-              </Nav.Link>
-
-              {/* Opción de navegación a Categorias*/}
               <Nav.Link
-                onClick={() => navegarA("/Categorias")}
+                onClick={() => navegarA("/categorias")}
                 className={estaColapsado ? "text-black" : "text-white"}
               >
                 {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
                 <strong>Categorias</strong>
               </Nav.Link>
 
+             
+
               <Nav.Link
-                onClick={() => navegarA("/Ventas")}
+                onClick={() => navegarA("/productos")}
+                className={estaColapsado ? "text-black" : "text-white"}
+              >
+                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Productos</strong>
+              </Nav.Link>
+
+              <Nav.Link
+                onClick={() => navegarA("/usuarios")}
+                className={estaColapsado ? "text-black" : "text-white"}
+              >
+                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Usuarios</strong>
+              </Nav.Link>
+
+              <Nav.Link
+                onClick={() => navegarA("/empleados")}
+                className={estaColapsado ? "text-black" : "text-white"}
+              >
+                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
+                <strong>Empleados</strong>
+              </Nav.Link>
+
+              <Nav.Link
+                onClick={() => navegarA("/ventas")}
                 className={estaColapsado ? "text-black" : "text-white"}
               >
                 {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
@@ -137,6 +147,8 @@ const Encabezado = () => {
                 {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
                 <strong>Compras</strong>
               </Nav.Link>
+
+
 
               {/* Lógica condicional para mostrar Cerrar Sesión o Iniciar Sesión */}
               {estaLogueado ? (
@@ -167,4 +179,3 @@ const Encabezado = () => {
 };
 
 export default Encabezado;
-

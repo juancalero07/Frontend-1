@@ -1,44 +1,44 @@
-// ModalRegistroCategoria.jsx
+// ModalRegistroUsuario.jsx
 import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 
-const ModalRegistroCategoria = ({
+const ModalRegistroUsuario = ({
   mostrarModal,
   setMostrarModal,
-  nuevaCategoria,
+  nuevoUsuario,
   manejarCambioInput,
-  agregarCategoria,
+  agregarUsuario,
   errorCarga,
 }) => {
   return (
     <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>Agregar Nueva Categoría</Modal.Title>
+        <Modal.Title>Agregar Nuevo Usuario</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group className="mb-3" controlId="formNombreCategoria">
-            <Form.Label>Nombre de la Categoría</Form.Label>
+          <Form.Group className="mb-3" controlId="formUsuario">
+            <Form.Label>Nombre de Usuario</Form.Label>
             <Form.Control
               type="text"
-              name="nombre_categoria"
-              value={nuevaCategoria.nombre_categoria}
+              name="usuario"
+              value={nuevoUsuario.usuario}
               onChange={manejarCambioInput}
-              placeholder="Ingresa el nombre (máx. 20 caracteres)"
+              placeholder="Ingresa el usuario (máx. 20 caracteres)"
               maxLength={20}
               required
             />
           </Form.Group>
-          <Form.Group className="mb-3" controlId="formDescripcionCategoria">
-            <Form.Label>Descripción</Form.Label>
+          <Form.Group className="mb-3" controlId="formContraseña">
+            <Form.Label>Contraseña</Form.Label>
             <Form.Control
-              as="textarea"
-              rows={3}
-              name="descripcion_categoria"
-              value={nuevaCategoria.descripcion_categoria}
+              type="password"
+              name="contraseña"
+              value={nuevoUsuario.contraseña}
               onChange={manejarCambioInput}
-              placeholder="Ingresa la descripción (máx. 100 caracteres)"
-              maxLength={100}
+              placeholder="Ingresa la contraseña (máx. 20 caracteres)"
+              maxLength={20}
+              required
             />
           </Form.Group>
           {errorCarga && (
@@ -52,12 +52,12 @@ const ModalRegistroCategoria = ({
         }}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={agregarCategoria}>
-          Guardar Categoría
+        <Button variant="primary" onClick={agregarUsuario}>
+          Guardar Usuario
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default ModalRegistroCategoria;
+export default ModalRegistroUsuario;

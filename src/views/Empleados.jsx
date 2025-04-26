@@ -1,44 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import TablaClientes from '../components/clientes/TablaClientes';
-import ModalRegistroCliente from '../components/clientes/ModalRegistroCliente';
-import ModalEliminacionCliente from '../components/clientes/ModalEliminacionCliente';
-import ModalEdicionCliente from '../components/clientes/ModalEdicionCliente';
+import TablaEmpleados from '../components/empleados/TablaEmpleados';
+import ModalRegistroEmpleado from '../components/empleados/ModalRegistroEmpleado';
+import ModalEliminacionEmpleado from '../components/empleados/ModalEliminacionEmpleado';
+import ModalEdicionEmpleado from '../components/empleados/ModalEdicionEmpleado';
 import CuadroBusquedas from '../components/busquedas/CuadroBusquedas';
 import { Container, Button, Row, Col } from "react-bootstrap";
 
-const Clientes = () => {
-  const [listaClientes, setListaClientes] = useState([]);
+const Empleados = () => {
+  const [listaEmpleados, setListaEmpleados] = useState([]);
   const [cargando, setCargando] = useState(true);
   const [errorCarga, setErrorCarga] = useState(null);
   const [mostrarModal, setMostrarModal] = useState(false);
-  const [nuevoCliente, setNuevoCliente] = useState({
+  const [nuevoEmpleado, setNuevoEmpleado] = useState({
     primer_nombre: '',
     segundo_nombre: '',
     primer_apellido: '',
     segundo_apellido: '',
     celular: '',
-    direccion: '',
-    cedula: ''
+    cargo: '',
+    fecha_contratacion: ''
   });
   const [mostrarModalEliminacion, setMostrarModalEliminacion] = useState(false);
-  const [clienteAEliminar, setClienteAEliminar] = useState(null);
-  const [clientesFiltrados, setClientesFiltrados] = useState([]);
+  const [empleadoAEliminar, setEmpleadoAEliminar] = useState(null);
+  const [empleadosFiltrados, setEmpleadosFiltrados] = useState([]);
   const [textoBusqueda, setTextoBusqueda] = useState("");
   const [paginaActual, establecerPaginaActual] = useState(1);
   const elementosPorPagina = 3;
-  const [clienteEditado, setClienteEditado] = useState(null);
+  const [empleadoEditado, setEmpleadoEditado] = useState(null);
   const [mostrarModalEdicion, setMostrarModalEdicion] = useState(false);
 
-  const obtenerClientes = async () => {
+  const obtenerEmpleados = async () => {
     try {
-      setCargando(true);
-      const respuesta = await fetch('http://localhost:3000/api/clientes');
+      const respuesta = await fetch('http://localhost:3000/api/empleados');
       if (!respuesta.ok) {
-        throw new Error('Error al cargar los clientes');
+        throw new Error('Error al cargar los empleados');
       }
       const datos = await respuesta.json();
-      setListaClientes(datos);
-      setClientesFiltrados(datos);
+      setListaEmpleados(datos);
+      setEmpleadosFiltrados(datos);
       setCargando(false);
     } catch (error) {
       setErrorCarga(error.message);
@@ -47,12 +46,12 @@ const Clientes = () => {
   };
 
   useEffect(() => {
-    obtenerClientes();
+    obtenerEmpleados();
   }, []);
 
   const manejarCambioInput = (e) => {
     const { name, value } = e.target;
-    setNuevoCliente(prev => ({
+    setNuevoEmpleado(prev => ({
       ...prev,
       [name]: value
     }));
@@ -60,41 +59,41 @@ const Clientes = () => {
 
   const manejarCambioInputEdicion = (e) => {
     const { name, value } = e.target;
-    setClienteEditado(prev => ({
+    setEmpleadoEditado(prev => ({
       ...prev,
       [name]: value
     }));
   };
 
-  const agregarCliente = async () => {
-    if (!nuevoCliente.primer_nombre || !nuevoCliente.primer_apellido || 
-        !nuevoCliente.celular || !nuevoCliente.cedula) {
+  const agregarEmpleado = async () => {
+    if (!nuevoEmpleado.primer_nombre || !nuevoEmpleado.primer_apellido || 
+        !nuevoEmpleado.celular || !nuevoEmpleado.cargo || !nuevoEmpleado.fecha_contratacion) {
       setErrorCarga("Por favor, completa todos los campos obligatorios antes de guardar.");
       return;
     }
 
     try {
-      const respuesta = await fetch('http://localhost:3000/api/registrarcliente', {
+      const respuesta = await fetch('http://localhost:3000/api/registrarempleado', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(nuevoCliente),
+        body: JSON.stringify(nuevoEmpleado),
       });
 
       if (!respuesta.ok) {
-        throw new Error('Error al agregar el cliente');
+        throw new Error('Error al agregar el empleado');
       }
 
-      await obtenerClientes();
-      setNuevoCliente({
+      await obtenerEmpleados();
+      setNuevoEmpleado({
         primer_nombre: '',
         segundo_nombre: '',
         primer_apellido: '',
         segundo_apellido: '',
         celular: '',
-        direccion: '',
-        cedula: ''
+        cargo: '',
+        fecha_contratacion: ''
       });
       setMostrarModal(false);
       setErrorCarga(null);
@@ -107,90 +106,82 @@ const Clientes = () => {
     const texto = e.target.value.toLowerCase();
     setTextoBusqueda(texto);
     establecerPaginaActual(1);
-
-    const filtrados = listaClientes.filter(
-      (cliente) =>
-        cliente.primer_nombre.toLowerCase().includes(texto) ||
-        (cliente.segundo_nombre && cliente.segundo_nombre.toLowerCase().includes(texto)) ||
-        cliente.primer_apellido.toLowerCase().includes(texto) ||
-        (cliente.segundo_apellido && cliente.segundo_apellido.toLowerCase().includes(texto)) ||
-        cliente.celular.toLowerCase().includes(texto) ||
-        (cliente.direccion && cliente.direccion.toLowerCase().includes(texto)) ||
-        cliente.cedula.toLowerCase().includes(texto)
+    
+    const filtrados = listaEmpleados.filter(
+      (empleado) =>
+        empleado.primer_nombre.toLowerCase().includes(texto) ||
+        (empleado.segundo_nombre && empleado.segundo_nombre.toLowerCase().includes(texto)) ||
+        empleado.primer_apellido.toLowerCase().includes(texto) ||
+        (empleado.segundo_apellido && empleado.segundo_apellido.toLowerCase().includes(texto)) ||
+        empleado.celular.toLowerCase().includes(texto) ||
+        empleado.cargo.toLowerCase().includes(texto) ||
+        empleado.fecha_contratacion.toLowerCase().includes(texto)
     );
-    setClientesFiltrados(filtrados);
+    setEmpleadosFiltrados(filtrados);
   };
 
-  const eliminarCliente = async () => {
-    if (!clienteAEliminar) return;
+  const eliminarEmpleado = async () => {
+    if (!empleadoAEliminar) return;
 
     try {
-      const respuesta = await fetch(`http://localhost:3000/api/eliminarcliente/${clienteAEliminar.id_cliente}`, {
+      const respuesta = await fetch(`http://localhost:3000/api/eliminarempleado/${empleadoAEliminar.id_empleado}`, {
         method: 'DELETE',
       });
 
       if (!respuesta.ok) {
-        throw new Error('Error al eliminar el cliente');
+        throw new Error('Error al eliminar el empleado');
       }
 
-      await obtenerClientes();
+      await obtenerEmpleados();
       setMostrarModalEliminacion(false);
       establecerPaginaActual(1);
-      setClienteAEliminar(null);
+      setEmpleadoAEliminar(null);
       setErrorCarga(null);
     } catch (error) {
       setErrorCarga(error.message);
     }
   };
 
-  const abrirModalEliminacion = (cliente) => {
-    setClienteAEliminar(cliente);
+  const abrirModalEliminacion = (empleado) => {
+    setEmpleadoAEliminar(empleado);
     setMostrarModalEliminacion(true);
   };
 
-  const abrirModalEdicion = (cliente) => {
-    setClienteEditado(cliente);
+  const abrirModalEdicion = (empleado) => {
+    setEmpleadoEditado(empleado);
     setMostrarModalEdicion(true);
   };
 
-  const actualizarCliente = async () => {
-    if (!clienteEditado?.primer_nombre || !clienteEditado?.primer_apellido || 
-        !clienteEditado?.celular || !clienteEditado?.cedula) {
+  const actualizarEmpleado = async () => {
+    if (!empleadoEditado?.primer_nombre || !empleadoEditado?.primer_apellido || 
+        !empleadoEditado?.celular || !empleadoEditado?.cargo || !empleadoEditado?.fecha_contratacion) {
       setErrorCarga("Por favor, completa todos los campos obligatorios antes de guardar.");
       return;
     }
 
     try {
-      const respuesta = await fetch(`http://localhost:3000/api/actualizarcliente/${clienteEditado.id_cliente}`, {
+      const respuesta = await fetch(`http://localhost:3000/api/actualizarempleado/${empleadoEditado.id_empleado}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          primer_nombre: clienteEditado.primer_nombre,
-          segundo_nombre: clienteEditado.segundo_nombre,
-          primer_apellido: clienteEditado.primer_apellido,
-          segundo_apellido: clienteEditado.segundo_apellido,
-          celular: clienteEditado.celular,
-          direccion: clienteEditado.direccion,
-          cedula: clienteEditado.cedula,
-        }),
+        body: JSON.stringify(empleadoEditado),
       });
 
       if (!respuesta.ok) {
-        throw new Error('Error al actualizar el cliente');
+        throw new Error('Error al actualizar el empleado');
       }
 
-      await obtenerClientes();
+      await obtenerEmpleados();
       setMostrarModalEdicion(false);
-      setClienteEditado(null);
+      setEmpleadoEditado(null);
       setErrorCarga(null);
     } catch (error) {
       setErrorCarga(error.message);
     }
   };
 
-  const clientesPaginados = clientesFiltrados.slice(
+  const empleadosPaginados = empleadosFiltrados.slice(
     (paginaActual - 1) * elementosPorPagina,
     paginaActual * elementosPorPagina
   );
@@ -199,12 +190,12 @@ const Clientes = () => {
     <>
       <Container className="mt-5">
         <br />
-        <h4>Clientes</h4>
+        <h4>Empleados</h4>
 
         <Row>
           <Col lg={2} md={4} sm={4} xs={5}>
             <Button variant="primary" onClick={() => setMostrarModal(true)} style={{ width: "100%" }}>
-              Nuevo Cliente
+              Nuevo Empleado
             </Button>
           </Col>
           <Col lg={5} md={8} sm={8} xs={7}>
@@ -217,39 +208,36 @@ const Clientes = () => {
 
         <br/><br/>
 
-        <TablaClientes
-          clientes={clientesPaginados}
-          cargando={cargando}
+        <TablaEmpleados 
+          empleados={empleadosPaginados} 
+          cargando={cargando} 
           error={errorCarga}
-          totalElementos={listaClientes.length}
+          totalElementos={empleadosFiltrados.length}
           elementosPorPagina={elementosPorPagina}
           paginaActual={paginaActual}
           establecerPaginaActual={establecerPaginaActual}
           abrirModalEliminacion={abrirModalEliminacion}
           abrirModalEdicion={abrirModalEdicion}
         />
-
-        <ModalRegistroCliente
+        <ModalRegistroEmpleado
           mostrarModal={mostrarModal}
           setMostrarModal={setMostrarModal}
-          nuevoCliente={nuevoCliente}
+          nuevoEmpleado={nuevoEmpleado}
           manejarCambioInput={manejarCambioInput}
-          agregarCliente={agregarCliente}
+          agregarEmpleado={agregarEmpleado}
           errorCarga={errorCarga}
         />
-
-        <ModalEliminacionCliente
+        <ModalEliminacionEmpleado
           mostrarModalEliminacion={mostrarModalEliminacion}
           setMostrarModalEliminacion={setMostrarModalEliminacion}
-          eliminarCliente={eliminarCliente}
+          eliminarEmpleado={eliminarEmpleado}
         />
-
-        <ModalEdicionCliente
+        <ModalEdicionEmpleado
           mostrarModalEdicion={mostrarModalEdicion}
           setMostrarModalEdicion={setMostrarModalEdicion}
-          clienteEditado={clienteEditado}
+          empleadoEditado={empleadoEditado}
           manejarCambioInputEdicion={manejarCambioInputEdicion}
-          actualizarCliente={actualizarCliente}
+          actualizarEmpleado={actualizarEmpleado}
           errorCarga={errorCarga}
         />
       </Container>
@@ -257,4 +245,4 @@ const Clientes = () => {
   );
 };
 
-export default Clientes;
+export default Empleados;

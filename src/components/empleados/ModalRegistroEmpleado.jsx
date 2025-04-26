@@ -1,19 +1,19 @@
-// ModalRegistroCliente.jsx
+// ModalRegistroEmpleado.jsx
 import React from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 
-const ModalRegistroCliente = ({
+const ModalRegistroEmpleado = ({
   mostrarModal,
   setMostrarModal,
-  nuevoCliente,
+  nuevoEmpleado,
   manejarCambioInput,
-  agregarCliente,
+  agregarEmpleado,
   errorCarga,
 }) => {
   return (
     <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
       <Modal.Header closeButton>
-        <Modal.Title>Agregar Nuevo Cliente</Modal.Title>
+        <Modal.Title>Agregar Nuevo Empleado</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -22,7 +22,7 @@ const ModalRegistroCliente = ({
             <Form.Control
               type="text"
               name="primer_nombre"
-              value={nuevoCliente.primer_nombre}
+              value={nuevoEmpleado.primer_nombre}
               onChange={manejarCambioInput}
               placeholder="Ingresa el primer nombre (máx. 20 caracteres)"
               maxLength={20}
@@ -35,7 +35,7 @@ const ModalRegistroCliente = ({
             <Form.Control
               type="text"
               name="segundo_nombre"
-              value={nuevoCliente.segundo_nombre}
+              value={nuevoEmpleado.segundo_nombre}
               onChange={manejarCambioInput}
               placeholder="Ingresa el segundo nombre (máx. 20 caracteres)"
               maxLength={20}
@@ -47,7 +47,7 @@ const ModalRegistroCliente = ({
             <Form.Control
               type="text"
               name="primer_apellido"
-              value={nuevoCliente.primer_apellido}
+              value={nuevoEmpleado.primer_apellido}
               onChange={manejarCambioInput}
               placeholder="Ingresa el primer apellido (máx. 20 caracteres)"
               maxLength={20}
@@ -60,7 +60,7 @@ const ModalRegistroCliente = ({
             <Form.Control
               type="text"
               name="segundo_apellido"
-              value={nuevoCliente.segundo_apellido}
+              value={nuevoEmpleado.segundo_apellido}
               onChange={manejarCambioInput}
               placeholder="Ingresa el segundo apellido (máx. 20 caracteres)"
               maxLength={20}
@@ -72,36 +72,34 @@ const ModalRegistroCliente = ({
             <Form.Control
               type="text"
               name="celular"
-              value={nuevoCliente.celular}
+              value={nuevoEmpleado.celular}
               onChange={manejarCambioInput}
-              placeholder="Ingresa el número celular (8 dígitos)"
-              maxLength={8}
+              placeholder="Ingresa el número celular (máx. 12 caracteres)"
+              maxLength={12}
               required
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formDireccion">
-            <Form.Label>Dirección</Form.Label>
+          <Form.Group className="mb-3" controlId="formCargo">
+            <Form.Label>Cargo</Form.Label>
             <Form.Control
-              as="textarea"
-              rows={3}
-              name="direccion"
-              value={nuevoCliente.direccion}
+              type="text"
+              name="cargo"
+              value={nuevoEmpleado.cargo}
               onChange={manejarCambioInput}
-              placeholder="Ingresa la dirección (máx. 150 caracteres)"
-              maxLength={150}
+              placeholder="Ingresa el cargo (máx. 20 caracteres)"
+              maxLength={20}
+              required
             />
           </Form.Group>
 
-          <Form.Group className="mb-3" controlId="formCedula">
-            <Form.Label>Cédula</Form.Label>
+          <Form.Group className="mb-3" controlId="formFechaContratacion">
+            <Form.Label>Fecha de Contratación</Form.Label>
             <Form.Control
-              type="text"
-              name="cedula"
-              value={nuevoCliente.cedula}
+              type="date"
+              name="fecha_contratacion"
+              value={nuevoEmpleado.fecha_contratacion}
               onChange={manejarCambioInput}
-              placeholder="Ingresa la cédula (máx. 14 caracteres)"
-              maxLength={14}
               required
             />
           </Form.Group>
@@ -112,17 +110,15 @@ const ModalRegistroCliente = ({
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => {
-          setMostrarModal(false);
-        }}>
+        <Button variant="secondary" onClick={() => setMostrarModal(false)}>
           Cancelar
         </Button>
-        <Button variant="primary" onClick={agregarCliente}>
-          Guardar Cliente
+        <Button variant="primary" onClick={agregarEmpleado}>
+          Guardar Empleado
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-export default ModalRegistroCliente;
+export default ModalRegistroEmpleado;

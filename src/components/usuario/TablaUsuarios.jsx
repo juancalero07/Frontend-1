@@ -3,11 +3,11 @@ import React from 'react';
 import { Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// Declaración del componente TablaCategorias que recibe props
-const TablaUsuarios = ({ Usuarios, cargando, error }) => {
+// Declaración del componente TablaUsuariosu que recibe props
+const TablaUsuarios = ({ usuarios, cargando, error }) => {
   // Renderizado condicional según el estado recibido por props
   if (cargando) {
-    return <div>Cargando Usuarios...</div>; // Muestra mensaje mientras carga
+    return <div>Cargando usuarios...</div>; // Muestra mensaje mientras carga
   }
   if (error) {
     return <div>Error: {error}</div>;         // Muestra error si ocurre
@@ -18,17 +18,17 @@ const TablaUsuarios = ({ Usuarios, cargando, error }) => {
     <Table striped bordered hover responsive>
       <thead>
         <tr>
-          <th>ID Usuarios</th>
-          <th>Usuarios</th>
+          <th>ID Usuario</th>
+          <th>Usuario</th>
           <th>Contraseña</th>
         </tr>
       </thead>
       <tbody>
-        {Usuarios.map((Usuarios) => (
-          <tr key={Usuarios.id_usuario}>
-            <td>{Usuarios.id_usuario}</td>
-            <td>{Usuarios.usuario}</td>
-            <td>{Usuarios.contraseña}</td>
+        {usuarios.map((usuario) => (
+          <tr key={usuario.id_usuario}>
+            <td>{usuario.id_usuario}</td>
+            <td>{usuario.usuario}</td>
+            <td>{usuario.contraseña}</td>
           </tr>
         ))}
       </tbody>

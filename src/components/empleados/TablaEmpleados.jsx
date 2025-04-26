@@ -3,8 +3,8 @@ import Paginacion from '../ordenamiento/Paginacion';
 import { Table, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const TablaClientes = ({
-  clientes,
+const TablaEmpleados = ({
+  empleados, 
   cargando,
   error,
   totalElementos,
@@ -15,7 +15,7 @@ const TablaClientes = ({
   abrirModalEdicion
 }) => {
   if (cargando) {
-    return <div>Cargando clientes...</div>;
+    return <div>Cargando empleados...</div>;
   }
   if (error) {
     return <div>Error: {error}</div>;
@@ -26,41 +26,41 @@ const TablaClientes = ({
       <Table striped bordered hover responsive>
         <thead>
           <tr>
-            <th>ID Cliente</th>
+            <th>ID Empleado</th>
             <th>Primer Nombre</th>
             <th>Segundo Nombre</th>
             <th>Primer Apellido</th>
             <th>Segundo Apellido</th>
             <th>Celular</th>
-            <th>Dirección</th>
-            <th>Cédula</th>
+            <th>Cargo</th>
+            <th>Fecha Contratación</th>
             <th>Acciones</th>
           </tr>
         </thead>
         <tbody>
-          {clientes.map((cliente) => (
-            <tr key={cliente.id_cliente}>
-              <td>{cliente.id_cliente}</td>
-              <td>{cliente.primer_nombre}</td>
-              <td>{cliente.segundo_nombre}</td>
-              <td>{cliente.primer_apellido}</td>
-              <td>{cliente.segundo_apellido}</td>
-              <td>{cliente.celular}</td>
-              <td>{cliente.direccion}</td>
-              <td>{cliente.cedula}</td>
+          {empleados.map((empleado) => (
+            <tr key={empleado.id_empleado}>
+              <td>{empleado.id_empleado}</td>
+              <td>{empleado.primer_nombre}</td>
+              <td>{empleado.segundo_nombre}</td>
+              <td>{empleado.primer_apellido}</td>
+              <td>{empleado.segundo_apellido}</td>
+              <td>{empleado.celular}</td>
+              <td>{empleado.cargo}</td>
+              <td>{empleado.fecha_contratacion}</td>
               <td>
                 <Button
                   variant="outline-danger"
                   size="sm"
                   className="me-2"
-                  onClick={() => abrirModalEliminacion(cliente)}
+                  onClick={() => abrirModalEliminacion(empleado)}
                 >
                   <i className="bi bi-trash"></i>
                 </Button>
                 <Button
                   variant="outline-warning"
                   size="sm"
-                  onClick={() => abrirModalEdicion(cliente)}
+                  onClick={() => abrirModalEdicion(empleado)}
                 >
                   <i className="bi bi-pencil"></i>
                 </Button>
@@ -79,4 +79,4 @@ const TablaClientes = ({
   );
 };
 
-export default TablaClientes;
+export default TablaEmpleados;
