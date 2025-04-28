@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "./views/Login";
 import Inicio from "./views/Inicio";
 import Encabezado from "./components/encabezado/Encabezado";
-
 import Productos from "./views/Productos";
 import Categorias from "./views/Categorias";
 import Clientes from "./views/Clientes";
@@ -11,6 +10,7 @@ import Ventas from "./views/Ventas";
 import Compras from "./views/Compras";
 import Usuarios from "./views/Usuarios";
 import Empleados from "./views/Empleados";
+
 import './App.css';
 
 

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import TablaVentas from '../components/ventas/TablaVentas'; // Importa el componente de tabla
 import { Container } from "react-bootstrap";
-
+import ModalDetallesVenta from '../components/detalles_ventas/ModalDetallesVenta';
 // Declaración del componente Ventas
 const Ventas = () => {
   // Estados para manejar los datos, carga y errores
@@ -10,11 +10,17 @@ const Ventas = () => {
   const [cargando, setCargando] = useState(true);     // Controla el estado de carga
   const [errorCarga, setErrorCarga] = useState(null); // Maneja errores de la petición
 
+  const [mostrarModal, setMostrarModal] = useState(false); // Estado para el modal
+  const [detallesVenta, setDetallesVenta] = useState([]); // Estado para los detalles
+  const [cargandoDetalles, setCargandoDetalles] = useState(false); // Estado de carga de detalles
+  const [errorDetalles, setErrorDetalles] = useState(null); // Estado de error de detalles
+
+
   // Lógica de obtención de datos con useEffect
   useEffect(() => {
     const obtenerVentas = async () => {
       try {
-        const respuesta = await fetch('http://localhost:3000/api/ventas'); // Ruta ajustada al controlador
+        const respuesta = await fetch('http://localhost:3000/api/obtenerventas'); // Ruta ajustada al controlador
         if (!respuesta.ok) {
           throw new Error('Error al cargar las ventas');
         }
@@ -28,7 +34,26 @@ const Ventas = () => {
     };
     obtenerVentas();            // Ejecuta la función al montar el componente
   }, []);                       // Array vacío para que solo se ejecute una vez
-
+  
+  
+// Función para obtener detalles de una venta
+const obtenerDetalles = async (id_venta) => {
+  setCargandoDetalles(true);
+  setErrorDetalles(null);
+  try {
+    const respuesta = await fetch(`http://localhost:3000/api/obtenerdetallesventa/${id_venta}`);
+    if (!respuesta.ok) {
+      throw new Error('Error al cargar los detalles de la venta');
+    }
+    const datos = await respuesta.json();
+    setDetallesVenta(datos);
+    setCargandoDetalles(false);
+    setMostrarModal(true); // Abre el modal
+  } catch (error) {
+    setErrorDetalles(error.message);
+    setCargandoDetalles(false);
+  }
+};
   // Renderizado de la vista
   return (
     <>
@@ -41,7 +66,18 @@ const Ventas = () => {
           ventas={listaVentas}
           cargando={cargando}
           error={errorCarga}
+          obtenerDetalles={obtenerDetalles} // Pasar la función
         />
+
+      <ModalDetallesVenta
+                mostrarModal={mostrarModal}
+                setMostrarModal={setMostrarModal}
+                detalles={detallesVenta}
+                cargandoDetalles={cargandoDetalles}
+                errorDetalles={errorDetalles}
+              />
+              
+
       </Container>
     </>
   );
