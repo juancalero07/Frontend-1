@@ -5,6 +5,7 @@ import { Container, Button, Row, Col } from "react-bootstrap";
 import ModalDetallesVenta from '../components/detalles_ventas/ModalDetallesVenta';
 import ModalEliminacionVenta from '../components/ventas/ModalEliminacionVenta';
 import ModalRegistroVenta from '../components/ventas/ModalRegistroVenta.jsx';
+import ModalActualizacionVenta from '../components/ventas/ModalActualizacionVenta';
 // Declaración del componente Ventas
 const Ventas = () => {
   // Estados para manejar los datos, carga y errores
@@ -31,6 +32,12 @@ const [nuevaVenta, setNuevaVenta] = useState({
   total_venta: 0
 });
 const [detallesNuevos, setDetallesNuevos] = useState([]);
+
+
+const [mostrarModalActualizacion, setMostrarModalActualizacion] = useState(false);
+const [ventaAEditar, setVentaAEditar] = useState(null);
+const [detallesEditados, setDetallesEditados] = useState([]);
+
 
 
 
@@ -158,7 +165,7 @@ const agregarVenta = async () => {
     const ventaData = {
       id_cliente: nuevaVenta.id_cliente,
       id_empleado: nuevaVenta.id_empleado,
-      fecha_venta: nuevaVenta.fecha_venta.toISOString(),
+      fecha_venta: nuevaVenta.fecha_venta.toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).replace(',', ' '),
       total_venta: detallesNuevos.reduce((sum, d) => sum + (d.cantidad * d.precio_unitario), 0),
       detalles: detallesNuevos
     };
@@ -182,6 +189,72 @@ const agregarVenta = async () => {
 };
 
 
+const abrirModalActualizacion = async (venta) => {
+  setCargandoDetalles(true);
+  try {
+    const respuestaventa = await fetch(`http://localhost:3000/api/obtenerventaporid/${venta.id_venta}`);
+    if (!respuestaventa.ok) throw new Error('Error al cargar la venta');
+    const datosventa = await respuestaventa.json();
+
+    
+    const datoscompletos = {
+      id_venta: datosventa.id_venta,
+      id_cliente: datosventa.id_cliente,
+      id_empleado: datosventa.id_empleado,
+      fecha_venta: datosventa.fecha_venta,
+      total_venta: datosventa.total_venta,
+      nombre_cliente: venta.nombre_cliente,
+      nombre_empleado: venta.nombre_empleado
+    };
+    
+    setVentaAEditar(datoscompletos);
+
+    const respuesta = await fetch(`http://localhost:3000/api/obtenerdetallesventa/${venta.id_venta}`);
+    if (!respuesta.ok) throw new Error('Error al cargar los detalles de la venta');
+    const datos = await respuesta.json();
+    setDetallesEditados(datos);
+
+    setCargandoDetalles(false);
+    setMostrarModalActualizacion(true);
+  } catch (error) {
+    setErrorDetalles(error.message);
+    setCargandoDetalles(false);
+  }
+};
+
+
+const actualizarVenta = async (ventaActualizada, detalles) => {
+
+  if (!ventaActualizada.id_cliente || !ventaActualizada.id_empleado || !ventaActualizada.fecha_venta || detalles.length === 0) {
+    setErrorCarga("Por favor, completa todos los campos y agrega al menos un detalle.");
+    return;
+  }
+  try {      
+    const ventaData = {
+      id_venta: ventaActualizada.id_venta,
+      id_cliente: ventaActualizada.id_cliente,
+      id_empleado: ventaActualizada.id_empleado,
+      fecha_venta: ventaActualizada.fecha_venta.toLocaleString('en-CA', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).replace(',', ' '),
+      total_venta: detalles.reduce((sum, d) => sum + (d.cantidad * d.precio_unitario), 0),
+      detalles
+    };
+    console.log(`Enviando ID venta: ${ventaActualizada.id_venta}`, JSON.stringify(ventaData));
+    const respuesta = await fetch(`http://localhost:3000/api/actualizarventa/${ventaActualizada.id_venta}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(ventaData)
+    });
+    if (!respuesta.ok) throw new Error('Error al actualizar la venta');
+    await obtenerVentas();
+    setMostrarModalActualizacion(false);
+    setVentaAEditar(null);
+    setDetallesEditados([]);
+    setErrorCarga(null);
+  } catch (error) {
+    setErrorCarga(error.message);
+  }
+};
+
   // Renderizado de la vista
   return (
     <>
@@ -200,12 +273,14 @@ const agregarVenta = async () => {
 
         {/* Pasa los estados como props al componente TablaVentas */}
         <TablaVentas
-          ventas={listaVentas}
-          cargando={cargando}
-          error={errorCarga}
-          obtenerDetalles={obtenerDetalles} // Pasar la función
-          abrirModalEliminacion={abrirModalEliminacion}
-        />
+            ventas={listaVentas}
+            cargando={cargando}
+            error={errorCarga}
+            obtenerDetalles={obtenerDetalles}
+            abrirModalEliminacion={abrirModalEliminacion}
+            abrirModalActualizacion={abrirModalActualizacion}
+          />
+
 
       <ModalDetallesVenta
                 mostrarModal={mostrarModal}
@@ -235,8 +310,24 @@ const agregarVenta = async () => {
   clientes={clientes}
   empleados={empleados}
   productos={productos}
+
 />
 
+<ModalActualizacionVenta
+  mostrarModal={mostrarModalActualizacion}
+  setMostrarModal={setMostrarModalActualizacion}
+  venta={ventaAEditar}
+  detallesVenta={detallesEditados}
+  setDetallesVenta={setDetallesEditados}
+  actualizarVenta={actualizarVenta}
+  errorCarga={errorCarga}
+  clientes={clientes}
+  empleados={empleados}
+  productos={productos}
+/>
+
+
+   
       </Container>
     </>
   );
