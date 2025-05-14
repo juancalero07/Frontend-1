@@ -10,8 +10,9 @@ import Ventas from "./views/Ventas";
 import Compras from "./views/Compras";
 import Usuarios from "./views/Usuarios";
 import Empleados from "./views/Empleados";
-
+import Catalogo from "./views/CatalogoProductos";
 import './App.css';
+
 
 
 
@@ -32,6 +33,8 @@ const App = () => {
             <Route path="/compras" element={<Compras />} />
             <Route path="/usuarios" element={<Usuarios/>} />
             <Route path="/empleados" element={<Empleados/>} />
+             <Route path="/catalogo" element={<Catalogo/>} />
+           
 
 
           </Routes>
