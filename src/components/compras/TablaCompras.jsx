@@ -1,8 +1,11 @@
 import React from 'react';
 import { Table, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Paginacion from '../ordenamiento/Paginacion';
 
-const TablaCompras = ({ compras, cargando, error, obtenerDetalles, abrirModalEliminacion, abrirModalActualizacion }) => {
+const TablaCompras = ({ compras, cargando, error, obtenerDetalles, abrirModalEliminacion, abrirModalActualizacion,elementosPorPagina,
+  paginaActual,
+  establecerPaginaActual }) => {
   if (cargando) return <div>Cargando compras...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -52,7 +55,10 @@ const TablaCompras = ({ compras, cargando, error, obtenerDetalles, abrirModalEli
           </tr>
         ))}
       </tbody>
+      
     </Table>
+     
+    
   );
 };
 

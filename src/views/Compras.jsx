@@ -18,7 +18,7 @@ const Compras = () => {
 
   const [mostrarModalEliminacion, setMostrarModalEliminacion] = useState(false);
   const [compraAEliminar, setCompraAEliminar] = useState(null);
-
+  
   const [mostrarModalRegistro, setMostrarModalRegistro] = useState(false);
   const [empleados, setEmpleados] = useState([]);
   const [productos, setProductos] = useState([]);

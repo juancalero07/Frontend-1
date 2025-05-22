@@ -3,17 +3,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { Container, Nav, Navbar, Offcanvas } from "react-bootstrap";
 import logo from "/vite.svg"; // Importación del logo de la ferretería
 import "bootstrap-icons/font/bootstrap-icons.css"; // Importación de íconos de Bootstrap
+import { NavDropdown } from 'react-bootstrap';
 import "../../App.css";
 
 // Estilos personalizados de la aplicación
-
 const Encabezado = () => {
   // Estado para controlar el colapso del menú lateral
   const [estaColapsado, setEstaColapsado] = useState(false);
-  
+
   // Hook para manejar la navegación entre rutas
   const navegar = useNavigate();
-  
+
   // Hook para obtener la ubicación actual de la ruta
   const ubicacion = useLocation();
 
@@ -88,59 +88,94 @@ const Encabezado = () => {
                 <strong>Inicio</strong>
               </Nav.Link>
 
-        
+              <NavDropdown 
+                  title={
+                    <span>
+                      {estaColapsado && <i className="bi-bag-heart-fill me-2"></i>}
+                      Clientes
+                    </span>
+                  }
+                  id="basic-nav-dropdown"  
+                  className={estaColapsado ? "titulo-negro" : "titulo-blanco"}
+                >
+       <NavDropdown.Item
+              onClick={() => navegarA("/clientes")}
+              className="text-black"
+            >
+              {estaColapsado ? <i className="bi-box2-heart-fill me-2"></i> : null}
+              <strong>Gestion Clientes</strong>
+            </NavDropdown.Item>
+
+            <NavDropdown.Item
+              className="text-black"
+              onClick={() => navegarA("/usuarios")}
+            >
+              {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+              <strong>Gestion Usuarios</strong>
+            </NavDropdown.Item>
+
+            <NavDropdown.Item
+              onClick={() => navegarA("/empleados")}
+              className="text-black"
+            >
+              {estaColapsado ? <i className="bi-images me-2"></i> : null}
+              <strong>Gestion Empleados</strong>
+            </NavDropdown.Item>
+      </NavDropdown>
+
+              <NavDropdown
+                title={
+                  <span>
+                    {estaColapsado && <i className="bi-bag-heart-fill me-2"></i>}
+                    Productos
+                  </span>
+                }
+                id="basic-nav-dropdown"
+                className={estaColapsado ? "titulo-negro" : "titulo-blanco"}
+              >
+                <NavDropdown.Item
+                  onClick={() => navegarA("/productos")}
+                  className="text-black"
+                >
+                  {estaColapsado ? <i className="bi-box2-heart-fill me-2"></i> : null}
+                  <strong>Gestión Productos</strong>
+                </NavDropdown.Item>
+
+                <NavDropdown.Item
+                  className="text-black"
+                  onClick={() => navegarA("/categorias")}
+                >
+                  {estaColapsado ? <i className="bi-bookmarks-fill me-2"></i> : null}
+                  <strong>Gestión Categorias</strong>
+                </NavDropdown.Item>
+
+                <NavDropdown.Item
+                  onClick={() => navegarA("/catalogo")}
+                  className="text-black"
+                >
+                  {estaColapsado ? <i className="bi-images me-2"></i> : null}
+                  <strong>Catálogo Productos</strong>
+                </NavDropdown.Item>
+              </NavDropdown>
 
               <Nav.Link
-                onClick={() => navegarA("/clientes")}
+                onClick={() => navegarA("/estadisticas")}
                 className={estaColapsado ? "text-black" : "text-white"}
               >
                 {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Clientes</strong>
+                <strong>Estadísticas</strong>
               </Nav.Link>
 
               <Nav.Link
-                onClick={() => navegarA("/categorias")}
+                onClick={() => navegarA("/dashboard")}
                 className={estaColapsado ? "text-black" : "text-white"}
               >
                 {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Categorias</strong>
+                <strong>Dashboard</strong>
               </Nav.Link>
 
+              
              
-
-              <Nav.Link
-                onClick={() => navegarA("/productos")}
-                className={estaColapsado ? "text-black" : "text-white"}
-              >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Productos</strong>
-              </Nav.Link>
-
-
-               <Nav.Link
-                onClick={() => navegarA("/catalogo")}
-                className={estaColapsado ? "text-black" : "text-white"}
-              >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Catalogo</strong>
-              </Nav.Link>
-
-              <Nav.Link
-                onClick={() => navegarA("/usuarios")}
-                className={estaColapsado ? "text-black" : "text-white"}
-              >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Usuarios</strong>
-              </Nav.Link>
-
-              <Nav.Link
-                onClick={() => navegarA("/empleados")}
-                className={estaColapsado ? "text-black" : "text-white"}
-              >
-                {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
-                <strong>Empleados</strong>
-              </Nav.Link>
-
               <Nav.Link
                 onClick={() => navegarA("/ventas")}
                 className={estaColapsado ? "text-black" : "text-white"}
@@ -156,8 +191,6 @@ const Encabezado = () => {
                 {estaColapsado ? <i className="bi-house-door-fill me-2"></i> : null}
                 <strong>Compras</strong>
               </Nav.Link>
-
-
 
               {/* Lógica condicional para mostrar Cerrar Sesión o Iniciar Sesión */}
               {estaLogueado ? (

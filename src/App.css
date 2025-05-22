@@ -1,11 +1,114 @@
-.color-navbar {
-  background: #3F5EFB important;
-background: radial-gradient(circle,rgba(63, 94, 251, 1) 0%, rgba(252, 70, 107, 1) 100%);
+/* ================= NAVBAR ================= */
+
+/* Fondo con sombra elegante y transición */
+nav {
+  background: linear-gradient(90deg, #ff5f6d, #845ec2);
+  padding: 1rem 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  transition: background 0.5s ease;
 }
 
-.color-texto-marca {
-  color: #1e3d87 !important;
+/* Texto blanco siempre */
+nav a {
+  color: #fff !important;
+  font-weight: 600;
+  margin: 0 1rem;
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s ease;
 }
-.margen-superior-main{
-  margin-top: 60px;
+
+/* Subrayado animado al hacer hover */
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: white;
+  transition: width 0.3s ease;
+}
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Estado activo más visible */
+nav a.active {
+  color: #ffffffe0 !important;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 0.3rem 0.8rem;
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px #ffffff3a;
+}
+
+/* ================= LOGIN ================= */
+
+/* Fondo general suave con animación */
+body {
+  background: radial-gradient(circle at top left, #f0f4ff, #e6e9f0);
+  animation: fadeIn 1.2s ease-in;
+}
+
+/* Animación inicial */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Card de login */
+.login-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+  padding: 3rem;
+  max-width: 400px;
+  margin: 5rem auto;
+  animation: fadeIn 1s ease-in-out;
+  transition: transform 0.3s ease;
+}
+.login-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Input estilizados */
+.login-card input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 2px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  transition: border-color 0.3s ease;
+}
+.login-card input:focus {
+  border-color: #57ccff;
+  outline: none;
+  box-shadow: 0 0 5px #57ccff33;
+}
+
+/* Botón animado */
+.login-card button {
+  background: linear-gradient(90deg, #57ccff, #00e0ff);
+  border: none;
+  color: white;
+  padding: 0.8rem;
+  width: 100%;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 224, 255, 0.4);
+  transition: background 0.4s ease, transform 0.2s ease;
+}
+.login-card button:hover {
+  background: linear-gradient(90deg, #00e0ff, #57ccff);
+  transform: scale(1.03);
 }
