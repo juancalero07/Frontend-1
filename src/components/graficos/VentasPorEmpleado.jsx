@@ -1,5 +1,5 @@
 import { Card } from "react-bootstrap";
-import { Bar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 import Chart from 'chart.js/auto';
 
 const VentasPorEmpleado = ({ empleados, total_ventas }) => {
@@ -39,13 +39,14 @@ const data = {
       },
     },
   };
+  
 
   return (
     <Card>
       <Card.Body>
         <Card.Title>Ventas por empleado</Card.Title>
         <div style={{ height: "300px", justifyContent: "center", alignItems: "center", display: "flex" }}>
-          <Bar data={data} options={options} />
+          <Pie data={data} options={options} />
         </div>
       </Card.Body>
     </Card>

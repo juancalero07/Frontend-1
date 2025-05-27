@@ -1,20 +1,22 @@
 /* ================= NAVBAR ================= */
-
-/* Fondo con sombra elegante y transición */
+/* Estilos para la barra de navegación con diseño elegante y transición */
 nav {
   background: linear-gradient(90deg, #ff5f6d, #845ec2);
   padding: 1rem 2rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
-  transition: background 0.5s ease;
+  transition: background 0.4s ease;
+  position: relative;
+  z-index: 100;
+  max-height: 60px;
 }
 
-/* Texto blanco siempre */
+/* Texto blanco con estilo consistente */
 nav a {
   color: #fff !important;
   font-weight: 600;
-  margin: 0 1rem;
+  margin: 0 1.5rem;
   text-decoration: none;
   position: relative;
   transition: color 0.3s ease;
@@ -35,25 +37,37 @@ nav a:hover::after {
   width: 100%;
 }
 
-/* Estado activo más visible */
+/* Estado activo más destacado */
 nav a.active {
   color: #ffffffe0 !important;
   font-weight: 700;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.15);
   padding: 0.3rem 0.8rem;
   border-radius: 10px;
-  box-shadow: inset 0 0 5px #ffffff3a;
+  box-shadow: inset 0 0 4px #ffffff2a;
+}
+
+/* Contenedor de gráficos con mejor manejo de espacio */
+.graph-container {
+  margin-top: 150px; /* Más espacio debajo del navbar */
+  position: relative;
+  z-index: 1;
+  min-height: 600px; /* Más espacio vertical */
+  padding-top: 1rem;
+  overflow: auto;
+  display: flex; /* Centrar contenido */
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
 }
 
 /* ================= LOGIN ================= */
-
-/* Fondo general suave con animación */
+/* Fondo general con animación suave */
 body {
   background: radial-gradient(circle at top left, #f0f4ff, #e6e9f0);
-  animation: fadeIn 1.2s ease-in;
+  animation: fadeIn 1s ease-in-out;
 }
 
-/* Animación inicial */
+/* Animación de entrada */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -65,50 +79,50 @@ body {
   }
 }
 
-/* Card de login */
+/* Tarjeta de login con diseño mejorado */
 .login-card {
   background: white;
   border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
-  padding: 3rem;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem;
   max-width: 400px;
   margin: 5rem auto;
-  animation: fadeIn 1s ease-in-out;
+  animation: fadeIn 0.8s ease-in-out;
   transition: transform 0.3s ease;
 }
 .login-card:hover {
   transform: translateY(-5px);
 }
 
-/* Input estilizados */
+/* Inputs estilizados con mejor enfoque */
 .login-card input {
   width: 100%;
-  padding: 0.8rem;
+  padding: 0.75rem;
   border: 2px solid #ddd;
   border-radius: 10px;
   margin-bottom: 1rem;
-  transition: border-color 0.3s ease;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 .login-card input:focus {
   border-color: #57ccff;
   outline: none;
-  box-shadow: 0 0 5px #57ccff33;
+  box-shadow: 0 0 5px rgba(87, 204, 255, 0.2);
 }
 
-/* Botón animado */
+/* Botón animado con mejor rendimiento */
 .login-card button {
   background: linear-gradient(90deg, #57ccff, #00e0ff);
   border: none;
   color: white;
-  padding: 0.8rem;
+  padding: 0.75rem;
   width: 100%;
   border-radius: 12px;
   font-weight: bold;
   cursor: pointer;
-  box-shadow: 0 5px 15px rgba(0, 224, 255, 0.4);
-  transition: background 0.4s ease, transform 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 224, 255, 0.3);
+  transition: background 0.3s ease, transform 0.2s ease;
 }
 .login-card button:hover {
   background: linear-gradient(90deg, #00e0ff, #57ccff);
-  transform: scale(1.03);
+  transform: scale(1.02);
 }
