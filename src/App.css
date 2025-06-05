@@ -8,8 +8,8 @@ nav {
   border-bottom-right-radius: 12px;
   transition: background 0.4s ease;
   position: relative;
-  z-index: 100;
-  max-height: 60px;
+  z-index: 100px;
+  max-height: 50px;
 }
 
 /* Texto blanco con estilo consistente */
@@ -49,7 +49,7 @@ nav a.active {
 
 /* Contenedor de gráficos con mejor manejo de espacio */
 .graph-container {
-  margin-top: 150px; /* Más espacio debajo del navbar */
+  margin-top: 100px; /* Más espacio debajo del navbar */
   position: relative;
   z-index: 1;
   min-height: 600px; /* Más espacio vertical */

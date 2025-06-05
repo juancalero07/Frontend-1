@@ -13,6 +13,7 @@ import Empleados from "./views/Empleados";
 import Catalogo from "./views/CatalogoProductos";
 import Estadisticas from "./views/Estadisticas";
 import Dashboard from "./views/Dashboard";
+import RutaProtegida from "./components/rutas/RutaProtegida";
 import './App.css';
 
 
@@ -38,7 +39,7 @@ const App = () => {
              <Route path="/catalogo" element={<Catalogo/>} />
              <Route path="/estadisticas" element={<Estadisticas/>} />
             <Route path="/dashboard" element={<Dashboard/>} />
-
+         <Route path="/inicio" element={<RutaProtegida vista={<Inicio />} />} />
 
           </Routes>
       </main>
