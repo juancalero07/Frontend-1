@@ -14,6 +14,7 @@ import Catalogo from "./views/CatalogoProductos";
 import Estadisticas from "./views/Estadisticas";
 import Dashboard from "./views/Dashboard";
 import RutaProtegida from "./components/rutas/RutaProtegida";
+import PiePagina from "./components/infopie/PiePagina";
 import './App.css';
 
 
@@ -22,8 +23,12 @@ import './App.css';
 const App = () => {
   return (
     <Router>
+     
+      <div  className="app-wrapper">
+
       <Encabezado/>
       <main className="margen-superior-main">
+
           <Routes>
  
             <Route path="/" element={<Login />} />
@@ -43,6 +48,11 @@ const App = () => {
 
           </Routes>
       </main>
+      
+      <PiePagina />
+     
+      </div>
+
     </Router>
   );
 };

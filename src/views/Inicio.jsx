@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Image } from "react-bootstrap";
-import Portada from "../assets/wallhaven-nmpev9.jpg";
+import Portada from "../assets/fondo.png";
 import Proposito from "../components/inicio/Proposito";
 
 const Inicio = () => {
@@ -26,13 +26,11 @@ const Inicio = () => {
   return (
     <Container>
       <br />
-    <h1 className="text-center m-4">¡Bienvenido, {nombreUsuario}!</h1>
-<Image src={Portada} fluid rounded/>
-<Proposito />
+          <h1 className="text-center m-4">¡Bienvenido, {nombreUsuario}!</h1>
+      <Image src={Portada} fluid rounded/>
+      <Proposito />
 
-      <h1>¡Bienvenido, {nombreUsuario}!</h1>
-      <p>Estás en la página de inicio.</p>
-      <button onClick={cerrarSesion}>Cerrar Sesión</button>
+      
     </Container>
   );
 };

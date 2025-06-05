@@ -31,7 +31,7 @@ const PiePagina = () => {
               <i className="bi bi-facebook"></i> Facebook
             </Button>
 
-            <Button variant="link" href="https://wa.me/+5058664491" target="_blank">
+            <Button variant="link" href="https://wa.me/+50588271227" target="_blank">
               <i className="bi bi-whatsapp"></i> Soporte técnico
             </Button>
 
