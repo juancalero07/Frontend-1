@@ -14,7 +14,7 @@ const PiePagina = () => {
             lg={{ order: 1, span: 6 }} 
             className="text-center text-lg-start"
           >
-            <p>Ferretería Selva, {new Date().getFullYear()}. ©</p>
+            <p>Ferretería Calero, {new Date().getFullYear()}. ©</p>
           </Col>
           <Col 
             xs={{ order: 1, span: 12 }} 
